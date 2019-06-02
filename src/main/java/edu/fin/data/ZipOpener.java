@@ -2,7 +2,6 @@ package edu.fin.data;
 import java.io.*;
 import java.util.ArrayList;
 
-
 import org.apache.commons.compress.archivers.zip.*;
 
 public class ZipOpener {
@@ -12,10 +11,14 @@ public class ZipOpener {
 	private ArrayList<String> error = new ArrayList<String>();
 	private ArrayList<String> excelfile = new ArrayList<String>();
 	
+	public ZipOpener() {
+		
+	}
+	
 	public ZipOpener(String input) {
 		this.input = input;
 	}
-	
+
 	public void start() throws IOException {
 		unzip(input);
 		
@@ -23,9 +26,14 @@ public class ZipOpener {
 			System.out.println(file);
 			unzipDetail(file);
 		}
+		
+		Reader reader = new Reader();
+		reader.run(excelfile);
+		
 		writeError(error);
 		System.out.println("done!");
 	}
+	
 	
 	public void unzip(String input) {
 		File zip = new File(input);
@@ -45,11 +53,12 @@ public class ZipOpener {
 				files.add(zipEntry.getName());
 				System.out.println("loading...");
 				int length = 0;
+				
 				while((length = zipInputStream.read()) != -1) {
 					fileOutputStream.write(length);
 				}
-				
 			}
+			
 		} catch (IOException e) {
 			
 		} finally {
@@ -130,4 +139,10 @@ public class ZipOpener {
 		}
 		outputStream.close();
 	}
+
+	public ArrayList<String> getFiles() {
+		return files;
+	}
+	
+	
 }
