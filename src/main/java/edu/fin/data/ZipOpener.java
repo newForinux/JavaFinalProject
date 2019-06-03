@@ -85,6 +85,9 @@ public class ZipOpener {
 		ZipArchiveEntry zipEntry = null;
 		File target;
 		
+		int index = input.indexOf(".");
+		String inputName = input.substring(0, index);
+		
 		try {
 			fileInputStream = new FileInputStream(zip);
 			zipInputStream = new ZipArchiveInputStream(fileInputStream, Charset.defaultCharset().name(), false);
@@ -95,11 +98,13 @@ public class ZipOpener {
 					target.mkdir();
 				
 				else
-					excelfile.add(zipEntry.getName());
+					excelfile.add(inputName + zipEntry.getName());
 				
 				System.out.println(zipEntry.getName());
 				
-				fileOutputStream = new FileOutputStream(zipEntry.getName());
+				
+				
+				fileOutputStream = new FileOutputStream(inputName + zipEntry.getName());
 				System.out.println("detail loading...");
 				int length = 0;
 				while((length = zipInputStream.read()) != -1) {
