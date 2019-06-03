@@ -8,6 +8,7 @@ import org.apache.commons.compress.archivers.zip.*;
 public class ZipOpener {
 	
 	private String input;
+	private String output;
 	private ArrayList<String> files = new ArrayList<String>();
 	private ArrayList<String> error = new ArrayList<String>();
 	private ArrayList<String> excelfile = new ArrayList<String>();
@@ -16,8 +17,9 @@ public class ZipOpener {
 		
 	}
 	
-	public ZipOpener(String input) {
+	public ZipOpener(String input, String output) {
 		this.input = input;
+		this.output = output;
 	}
 
 	public void start() throws IOException {
@@ -30,7 +32,7 @@ public class ZipOpener {
 		}
 		
 		Reader reader = new Reader();
-		reader.run(excelfile);
+		reader.run(excelfile, output);
 		
 		writeError(error);
 		System.out.println("done!");
@@ -43,7 +45,6 @@ public class ZipOpener {
 		FileOutputStream fileOutputStream = null;
 		ZipArchiveInputStream zipInputStream = null;
 		ZipArchiveEntry zipEntry = null;
-		File target;
 		
 		try {
 			fileInputStream = new FileInputStream(zip);
@@ -51,11 +52,10 @@ public class ZipOpener {
 			zipInputStream = new ZipArchiveInputStream(fileInputStream);
 			
 			while((zipEntry = zipInputStream.getNextZipEntry()) != null) {
-				target = new File(zip, zipEntry.getName());
+
 				
 				fileOutputStream = new FileOutputStream(zipEntry.getName());
 				files.add(zipEntry.getName());
-				System.out.println("loading...");
 				int length = 0;
 				
 				while((length = zipInputStream.read()) != -1) {
@@ -94,18 +94,18 @@ public class ZipOpener {
 			
 			while((zipEntry = zipInputStream.getNextZipEntry()) != null) {
 				target = new File(zipEntry.getName());
-				if (zipEntry.isDirectory())
+				if (zipEntry.isDirectory()) {
 					target.mkdir();
+					continue;
+				}
 				
 				else
 					excelfile.add(inputName + zipEntry.getName());
 				
 				System.out.println(zipEntry.getName());
 				
-				
-				
 				fileOutputStream = new FileOutputStream(inputName + zipEntry.getName());
-				System.out.println("detail loading...");
+
 				int length = 0;
 				while((length = zipInputStream.read()) != -1) {
 					fileOutputStream.write(length);
@@ -113,14 +113,13 @@ public class ZipOpener {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.out.println("---------this is unZipDetail problem-------");
 			error.add(input);
 			
 		} finally {
 			try {
 				zipInputStream.close();
-                //fileOutputStream.flush();
-                //fileOutputStream.close();
+                fileOutputStream.flush();
+                fileOutputStream.close();
                 zipInputStream.close();
 			} catch (IOException e) {
 				

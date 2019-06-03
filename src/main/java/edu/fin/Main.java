@@ -7,7 +7,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		ZipOpener opener = new ZipOpener(args[0]);
+		ZipOpener opener = new ZipOpener(args[0], args[1]);
 		try {
 			opener.start();
 		} catch (IOException e) {
