@@ -1,5 +1,6 @@
 package edu.fin.data;
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 import org.apache.commons.compress.archivers.zip.*;
@@ -20,6 +21,7 @@ public class ZipOpener {
 	}
 
 	public void start() throws IOException {
+		//first unzip data.zip
 		unzip(input);
 		
 		for (String file : files) {
@@ -45,10 +47,12 @@ public class ZipOpener {
 		
 		try {
 			fileInputStream = new FileInputStream(zip);
+			
 			zipInputStream = new ZipArchiveInputStream(fileInputStream);
 			
 			while((zipEntry = zipInputStream.getNextZipEntry()) != null) {
-				target = new File(zip, zipEntry.getName());			
+				target = new File(zip, zipEntry.getName());
+				
 				fileOutputStream = new FileOutputStream(zipEntry.getName());
 				files.add(zipEntry.getName());
 				System.out.println("loading...");
@@ -57,10 +61,10 @@ public class ZipOpener {
 				while((length = zipInputStream.read()) != -1) {
 					fileOutputStream.write(length);
 				}
-			}
+			} 
 			
 		} catch (IOException e) {
-			
+			e.printStackTrace();
 		} finally {
 			try {
 				zipInputStream.close();
@@ -83,7 +87,7 @@ public class ZipOpener {
 		
 		try {
 			fileInputStream = new FileInputStream(zip);
-			zipInputStream = new ZipArchiveInputStream(fileInputStream);
+			zipInputStream = new ZipArchiveInputStream(fileInputStream, Charset.defaultCharset().name(), false);
 			
 			while((zipEntry = zipInputStream.getNextZipEntry()) != null) {
 				target = new File(zipEntry.getName());
@@ -94,6 +98,7 @@ public class ZipOpener {
 					excelfile.add(zipEntry.getName());
 				
 				System.out.println(zipEntry.getName());
+				
 				fileOutputStream = new FileOutputStream(zipEntry.getName());
 				System.out.println("detail loading...");
 				int length = 0;
@@ -102,7 +107,8 @@ public class ZipOpener {
 				}
 			}
 		} catch (IOException e) {
-			new IllegalInputException();
+			e.printStackTrace();
+			System.out.println("---------this is unZipDetail problem-------");
 			error.add(input);
 			
 		} finally {

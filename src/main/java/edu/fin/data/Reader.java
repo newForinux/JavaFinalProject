@@ -12,11 +12,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class Reader {
 	private Workbook workbook;
 	private Sheet sheet;
-	private ArrayList<Submit> summaryList;
-	private ArrayList<Submit> summaryTable;
+	private ArrayList<Submit> summaryList = new ArrayList<Submit>();
+	private ArrayList<SubmitTable> summaryTable = new ArrayList<SubmitTable>();
 	private ArrayList<String> zipName;
 	private HashMap<String, ArrayList<Submit>> studentAssignment = new HashMap<String, ArrayList<Submit>>();
-	
+	private HashMap<String, ArrayList<SubmitTable>> studentAssignmentTable = new HashMap<String, ArrayList<SubmitTable>>();
 	
 	public void run(ArrayList<String> files) {
 		
@@ -32,6 +32,7 @@ public class Reader {
 		}
 	}
 	
+	
 	public void runSummary(String filename, File file) {
 		try {
 			if (filename.endsWith("xlsx"))
@@ -41,7 +42,7 @@ public class Reader {
 				workbook = new HSSFWorkbook(new FileInputStream(file));
 		
 			else {
-				System.out.println ("no excel file");
+				System.out.println ("no excel summary file");
 				System.exit(0);
 			}
 		
@@ -54,19 +55,22 @@ public class Reader {
 				
 				if (row != null) {
 					
-					submit.setTitle(row.getCell(0).getStringCellValue());
-					submit.setSummary(row.getCell(1).getStringCellValue());
-					submit.setCoreWord(row.getCell(2).getStringCellValue());
-					submit.setDate(row.getCell(3).getStringCellValue());
-					submit.setRealSource(row.getCell(4).getStringCellValue());
-					submit.setOriginSource(row.getCell(5).getStringCellValue());
-					submit.setOwner(row.getCell(6).getStringCellValue());
+					submit.setTitle(String.valueOf(row.getCell(0)));
+					submit.setSummary(String.valueOf(row.getCell(1)));
+					submit.setCoreWord(String.valueOf(row.getCell(2)));
+					submit.setDate(String.valueOf(row.getCell(3)));
+					submit.setRealSource(String.valueOf(row.getCell(4)));
+					submit.setOriginSource(String.valueOf(row.getCell(5)));
+					submit.setOwner(String.valueOf(row.getCell(6)));
+					
+
 					summaryList.add(submit);
 				}
 			}
 			
 			
 		} catch (IOException e) {
+
 			System.out.println("Error : " + filename);
 		}
 	}
@@ -80,36 +84,31 @@ public class Reader {
 				workbook = new HSSFWorkbook(new FileInputStream(file));
 		
 			else {
-				System.out.println ("nono");
+				System.out.println ("no excel table file");
 				System.exit(0);
 			}
 		
 			sheet = workbook.getSheetAt(0);
-			Iterator<Row> iterator = sheet.iterator();
-
-			while (iterator.hasNext()) {
-
-				Row currentRow = iterator.next();
-				Iterator<Cell> cellIterator = currentRow.iterator();
-
-				while (cellIterator.hasNext()) {
-
-					Cell currentCell = cellIterator.next();
-					if (currentCell.getCellType() == CellType.STRING)
-						System.out.print(currentCell.getStringCellValue() + "--");
-					
-					else if (currentCell.getCellType() == CellType.NUMERIC)
-						System.out.print(currentCell.getNumericCellValue() + "--");
-					
-
-				}
+			int numberOfRows = sheet.getPhysicalNumberOfRows();
+			
+			for (int rowIndex = 1; rowIndex < numberOfRows; rowIndex++) {
+				Row row = sheet.getRow(rowIndex);
+				SubmitTable submitTable = new SubmitTable();
 				
-				System.out.println();
-
+				if (row != null) {
+					submitTable.setTitle(String.valueOf(row.getCell(0)));
+					submitTable.setSerial(String.valueOf(row.getCell(1)));
+					submitTable.setDataType(String.valueOf(row.getCell(2)));
+					submitTable.setInformations(String.valueOf(row.getCell(3)));
+					submitTable.setInfoNumber(String.valueOf(row.getCell(4)));
+					
+					summaryTable.add(submitTable);
+				}
 			}
 			
+			
 		} catch (IOException e) {
-			System.out.println("Error2 : " + filename);
+			System.out.println("Error : " + filename);
 		}
 	}
 }
