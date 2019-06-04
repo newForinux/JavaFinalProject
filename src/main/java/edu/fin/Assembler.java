@@ -23,6 +23,7 @@ public class Assembler {
 		
 		int count = 0;
 		int row = 0;
+		int i;
 		
 		try {
 			File file = new File(resultPath);
@@ -34,13 +35,13 @@ public class Assembler {
 			
 			
 			for (String studentOrder : zipfile) {
-				System.out.println ("> " + studentOrder);
 				ArrayList<Submit> result_submit = summary.get(studentOrder);
 				row += result_submit.size();
-				System.out.println (row + " -- " + result_submit.size());
+				
+				i = 0;
 				
 				while(count < row) {
-					int i = 0;
+					
 					Row = sheet.createRow(count);
 					Row.createCell(0).setCellValue(result_submit.get(i).getTitle());
 					Row.createCell(1).setCellValue(result_submit.get(i).getSummary());
@@ -51,18 +52,20 @@ public class Assembler {
 					Row.createCell(6).setCellValue(result_submit.get(i).getOwner());
 					i++;
 					count++;
-					System.out.println("making summary...");
+					
 				}
 				count++;
+				row++;
 			}
 			
 			for (String studentOrder : zipfile) {
-				
 				ArrayList<SubmitTable> result_submitTable = table.get(studentOrder);
 				row += result_submitTable.size();
 				
+				i = 0;
+				
 				while (count < row) {
-					int i = 0;
+					
 					Row = sheet.createRow(count);
 					Row.createCell(0).setCellValue(result_submitTable.get(i).getTitle());
 					Row.createCell(1).setCellValue(result_submitTable.get(i).getSerial());
@@ -71,8 +74,10 @@ public class Assembler {
 					Row.createCell(4).setCellValue(result_submitTable.get(i).getInfoNumber());
 					i++;
 					count++;
-					System.out.println("making table...");
 				}
+				
+				count++;
+				row++;
 			}
 			
 			workbook.write(outputFile);

@@ -12,19 +12,15 @@ import edu.fin.Assembler;
 
 
 public class Reader {
-	private String resultPath;
+	//private String resultPath;
 	private Workbook workbook;
 	private Sheet sheet;
-	private ArrayList<Submit> summaryList = new ArrayList<Submit>();
-	private ArrayList<SubmitTable> summaryTable = new ArrayList<SubmitTable>();
 	private ArrayList<String> zipFileName = new ArrayList<String>();
 	private HashMap<String, ArrayList<Submit>> studentAssignment = new HashMap<String, ArrayList<Submit>>();
 	private HashMap<String, ArrayList<SubmitTable>> studentAssignmentTable = new HashMap<String, ArrayList<SubmitTable>>();
 	
 	public void run(ArrayList<String> files, String resultPath) {
-		
-		this.resultPath = resultPath;
-		
+				
 		for(String filename:files) {
 			File file = new File(filename);
 			
@@ -55,6 +51,7 @@ public class Reader {
 		
 			sheet = workbook.getSheetAt(0);
 			int numberOfRows = sheet.getPhysicalNumberOfRows();
+			ArrayList<Submit> summaryList = new ArrayList<Submit>();
 			
 			for (int rowIndex = 1; rowIndex < numberOfRows; rowIndex++) {
 				Row row = sheet.getRow(rowIndex);
@@ -79,7 +76,7 @@ public class Reader {
 			
 		} catch (IOException e) {
 
-			System.out.println("Error : " + filename);
+			new IllegalInputException ("Error : " + filename);
 		}
 	}
 	
@@ -98,6 +95,7 @@ public class Reader {
 		
 			sheet = workbook.getSheetAt(0);
 			int numberOfRows = sheet.getPhysicalNumberOfRows();
+			ArrayList<SubmitTable> summaryTable = new ArrayList<SubmitTable>();
 			
 			for (int rowIndex = 1; rowIndex < numberOfRows; rowIndex++) {
 				Row row = sheet.getRow(rowIndex);
@@ -118,7 +116,7 @@ public class Reader {
 			zipFileName.add(filename.substring(0, 4));
 			
 		} catch (IOException e) {
-			System.out.println("Error : " + filename);
+			new IllegalInputException("Error : " + filename);
 		}
 	}
 
