@@ -1,6 +1,7 @@
 package edu.fin;
 import java.io.IOException;
 
+import edu.fin.data.IllegalInputException;
 import edu.fin.data.ZipOpener;
 
 public class Main {
@@ -12,7 +13,7 @@ public class Main {
 			opener.start(args);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			new IllegalInputException("Please input Command Line.");
 		}
 	}
 

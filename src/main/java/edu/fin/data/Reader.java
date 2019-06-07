@@ -12,7 +12,6 @@ import edu.fin.Assembler;
 
 
 public class Reader {
-	//private String resultPath;
 	private Workbook workbook;
 	private Sheet sheet;
 	private ArrayList<String> zipFileName = new ArrayList<String>();
@@ -97,11 +96,12 @@ public class Reader {
 			int numberOfRows = sheet.getPhysicalNumberOfRows();
 			ArrayList<SubmitTable> summaryTable = new ArrayList<SubmitTable>();
 			
-			for (int rowIndex = 1; rowIndex < numberOfRows; rowIndex++) {
+			for (int rowIndex = 2; rowIndex < numberOfRows; rowIndex++) {
 				Row row = sheet.getRow(rowIndex);
 				SubmitTable submitTable = new SubmitTable();
 				
 				if (row != null) {
+					
 					submitTable.setTitle(String.valueOf(row.getCell(0)));
 					submitTable.setSerial(String.valueOf(row.getCell(1)));
 					submitTable.setDataType(String.valueOf(row.getCell(2)));
