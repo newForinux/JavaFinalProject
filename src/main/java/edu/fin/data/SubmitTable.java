@@ -38,6 +38,4 @@ public class SubmitTable {
 	public void setInfoNumber(String infoNumber) {
 		this.infoNumber = infoNumber;
 	}
-	
-	
 }

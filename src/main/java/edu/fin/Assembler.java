@@ -12,20 +12,18 @@ public class Assembler implements Runnable {
 	private ArrayList<String> zipfile = null;
 	private HashMap<String, ArrayList<Submit>> summary = null;
 	private String resultPath = null;
-	private ArrayList<String> fileStudent = null;
-	
-	public Assembler (ArrayList<String> file, ArrayList<String> zipfile, HashMap<String, ArrayList<Submit>> summary, String resultPath) {
+
+	public Assembler (ArrayList<String> zipfile, HashMap<String, ArrayList<Submit>> summary, String resultPath) {
 		this.zipfile = zipfile;
 		this.summary = summary;
 		this.resultPath = resultPath;
-		this.fileStudent = file;
 	}
 	
 	public void run () {
 		
 		int count = 1;
 		int row = 1;
-		int i, index = 0;
+		int i;
 		
 		try {
 			File file = new File(resultPath);
@@ -53,11 +51,9 @@ public class Assembler implements Runnable {
 				
 				Row = sheet.createRow(count);
 				
-				int substr = fileStudent.get(index).indexOf(".");
-				String stuId = fileStudent.get(index).substring(0, substr);
-				Row.createCell(0).setCellValue(stuId);
-				
-				index++;
+
+				Row.createCell(0).setCellValue(studentOrder);
+
 				count++;
 				row++;
 				

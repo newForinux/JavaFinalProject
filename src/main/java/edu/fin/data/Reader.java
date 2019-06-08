@@ -116,8 +116,7 @@ public class Reader {
 			new IllegalInputException("Error : " + filename);
 		}
 	}
-
-
+	
 	public ArrayList<String> getZipFileName() {
 		return zipFileName;
 	}

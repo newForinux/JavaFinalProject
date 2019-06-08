@@ -162,7 +162,7 @@ public class ZipOpener {
 		outputStream.close();
 	}
 	
-	private boolean parseOptions (Options options, String args[]) {
+	private boolean parseOptions (Options options, String[] args) {
 		CommandLineParser parser = new DefaultParser();
 		
 		try {
