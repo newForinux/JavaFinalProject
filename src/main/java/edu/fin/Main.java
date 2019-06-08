@@ -19,6 +19,7 @@ public class Main {
 			
 			String Output = opener.getOutput();
 			ArrayList<String> Excelfile = opener.getExcelfile();
+			ArrayList<String> file = opener.getFiles();
 			
 			Reader reader = new Reader();
 			reader.run(Excelfile);
@@ -33,10 +34,10 @@ public class Main {
 			
 			System.out.println (output1 + " and " + output2 + " is created.");
 			
-			Runnable assemble = new Assembler(zipFileName, studentAssignment, output1);
+			Runnable assemble = new Assembler(file, zipFileName, studentAssignment, output1);
 			Thread thread_summary = new Thread(assemble);
 			
-			Runnable assembleTable = new AssemblerTable(zipFileName, studentAssignmentTable, output2);
+			Runnable assembleTable = new AssemblerTable(file, zipFileName, studentAssignmentTable, output2);
 			Thread thread_table = new Thread(assembleTable);
 			
 			

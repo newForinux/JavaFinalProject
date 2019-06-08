@@ -20,18 +20,20 @@ public class AssemblerTable implements Runnable{
 	private ArrayList<String> zipfile = null;
 	private HashMap<String, ArrayList<SubmitTable>> table = null; 
 	private String resultPath = null;
+	private ArrayList<String> fileStudent = null;
 	
-	public AssemblerTable (ArrayList<String> zipfile, HashMap<String, ArrayList<SubmitTable>> table, String resultPath) {
+	public AssemblerTable (ArrayList<String> file, ArrayList<String> zipfile, HashMap<String, ArrayList<SubmitTable>> table, String resultPath) {
 		this.zipfile = zipfile;
 		this.table = table;
 		this.resultPath = resultPath;
+		this.fileStudent = file;
 	}
 	
 	public void run() {
 		
 		int count = 0;
 		int row = 0;
-		int i;
+		int i, index = 0;
 		
 		try {
 			File file = new File(resultPath);
@@ -62,7 +64,17 @@ public class AssemblerTable implements Runnable{
 				row += result_submitTable.size();
 		
 				i = 0;
-		
+				
+				Row = sheet.createRow(count);
+				
+				int substr = fileStudent.get(index).indexOf(".");
+				String stuId = fileStudent.get(index).substring(0, substr);
+				Row.createCell(0).setCellValue(stuId);
+				
+				index++;
+				count++;
+				row++;
+				
 				while (count < row) {
 			
 					Row = sheet.createRow(count);
@@ -74,9 +86,6 @@ public class AssemblerTable implements Runnable{
 					i++;
 					count++;
 				}
-		
-				count++;
-				row++;
 			}
 			
 			workbook.write(outputFile);

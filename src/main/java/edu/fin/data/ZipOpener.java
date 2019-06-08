@@ -161,10 +161,6 @@ public class ZipOpener {
 		}
 		outputStream.close();
 	}
-
-	public ArrayList<String> getFiles() {
-		return files;
-	}
 	
 	private boolean parseOptions (Options options, String args[]) {
 		CommandLineParser parser = new DefaultParser();
@@ -217,7 +213,9 @@ public class ZipOpener {
 		formatter.printHelp("JavaFinalProject", header, options, footer, true);
 	}
 
-	
+	public ArrayList<String> getFiles() {
+		return files;
+	}
 
 	public String getOutput() {
 		return output;
