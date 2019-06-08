@@ -8,18 +8,18 @@ import edu.fin.data.*;
 import edu.fin.data.Reader;
 
 
-public class Assembler {
+public class Assembler implements Runnable {
 	private ArrayList<String> zipfile = null;
 	private HashMap<String, ArrayList<Submit>> summary = null;
-	private HashMap<String, ArrayList<SubmitTable>> table = null; 
+	private String resultPath = null;
 	
-	public Assembler (ArrayList<String> zipfile, HashMap<String, ArrayList<Submit>> summary, HashMap<String, ArrayList<SubmitTable>> table) {
+	public Assembler (ArrayList<String> zipfile, HashMap<String, ArrayList<Submit>> summary, String resultPath) {
 		this.zipfile = zipfile;
 		this.summary = summary;
-		this.table = table;
+		this.resultPath = resultPath;
 	}
 	
-	public void assembleExcel (String resultPath) {
+	public void run () {
 		
 		int count = 1;
 		int row = 1;
@@ -67,42 +67,6 @@ public class Assembler {
 				row++;
 			}
 			
-			Row = sheet.createRow(count);
-			Row.createCell(0).setCellValue("1. 찾은 자료 내에 있는 그림이나 표의 자료내 위치(쪽번호)와 표와 그림을 설명하는 캡션(주석)을 적습니다.\r\n" + 
-					"2. 표와 그림의 캡션이 없는 경우, 본문의 내용을 보고 간단히 설명을 적오주세요.");
-			
-			Row = sheet.createRow(count+1);
-			Row.createCell(0).setCellValue("제목(반드시 요약문 양식에 입력한 제목과 같아야 함.)");
-			Row.createCell(0).setCellValue("표/그림 일련번호");
-			Row.createCell(0).setCellValue("자료유형(표,그림,…)");
-			Row.createCell(0).setCellValue("자료에 나온 표나 그림 설명(캡션)");
-			Row.createCell(0).setCellValue("자료가 나온 쪽번호");
-			
-			count += 2;
-			row += 2;
-			
-			for (String studentOrder : zipfile) {
-				ArrayList<SubmitTable> result_submitTable = table.get(studentOrder);
-				row += result_submitTable.size();
-				
-				i = 0;
-				
-				while (count < row) {
-					
-					Row = sheet.createRow(count);
-					Row.createCell(0).setCellValue(result_submitTable.get(i).getTitle());
-					Row.createCell(1).setCellValue(result_submitTable.get(i).getSerial());
-					Row.createCell(2).setCellValue(result_submitTable.get(i).getDataType());
-					Row.createCell(3).setCellValue(result_submitTable.get(i).getInformations());
-					Row.createCell(4).setCellValue(result_submitTable.get(i).getInfoNumber());
-					i++;
-					count++;
-				}
-				
-				count++;
-				row++;
-			}
-			
 			workbook.write(outputFile);
 			outputFile.close();
 			workbook.close();
@@ -110,7 +74,7 @@ public class Assembler {
 		} catch (FileNotFoundException e) {
 			new IllegalInputException("File not founded.");
 		} catch (IOException e) {
-			new IllegalInputException("Input or Output error.");
+			new IllegalInputException("Input or Output Error.");
 		}
 	}
 }

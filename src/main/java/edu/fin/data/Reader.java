@@ -18,7 +18,7 @@ public class Reader {
 	private HashMap<String, ArrayList<Submit>> studentAssignment = new HashMap<String, ArrayList<Submit>>();
 	private HashMap<String, ArrayList<SubmitTable>> studentAssignmentTable = new HashMap<String, ArrayList<SubmitTable>>();
 	
-	public void run(ArrayList<String> files, String resultPath) {
+	public void run(ArrayList<String> files) {
 				
 		for(String filename:files) {
 			File file = new File(filename);
@@ -29,9 +29,6 @@ public class Reader {
 			else
 				runTable(filename, file);
 		}
-		
-		Assembler assemble = new Assembler (zipFileName, studentAssignment, studentAssignmentTable);
-		assemble.assembleExcel(resultPath);
 	}
 	
 	

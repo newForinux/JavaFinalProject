@@ -36,18 +36,15 @@ public class ZipOpener {
 				return;
 			}
 		
+			System.out.println("Extracting zip file...");
 			unzip(input);
 		
 			for (String file : files) {
-				System.out.println(file);
 				unzipDetail(file);
+				System.out.println(file + " is successfully extracted.");
 			}
 		
-			Reader reader = new Reader();
-			reader.run(excelfile, output);
-		
 			writeError(error);
-			System.out.println("done!");
 		}
 	}
 	
@@ -86,7 +83,8 @@ public class ZipOpener {
                 fileOutputStream.close();
                 zipInputStream.close();
 			} catch (IOException e) {
-				
+				new IllegalInputException("detected critical damage in zip file.");
+				e.printStackTrace();
 			}
 		}
 	}
@@ -123,6 +121,7 @@ public class ZipOpener {
 					fileOutputStream.write(length);
 				}
 			}
+			
 		} catch (IOException e) {
 			new IllegalInputException();
 			error.add(input);
@@ -134,7 +133,8 @@ public class ZipOpener {
                 fileOutputStream.close();
                 zipInputStream.close();
 			} catch (IOException e) {
-				
+				new IllegalInputException("detected critical damage in excel file.");
+				e.printStackTrace();
 			}
 		}
 	}
@@ -216,4 +216,15 @@ public class ZipOpener {
 		String footer = "";
 		formatter.printHelp("JavaFinalProject", header, options, footer, true);
 	}
+
+	
+
+	public String getOutput() {
+		return output;
+	}
+
+	public ArrayList<String> getExcelfile() {
+		return excelfile;
+	}
+	
 }
