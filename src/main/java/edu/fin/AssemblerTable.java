@@ -18,10 +18,10 @@ import edu.fin.data.SubmitTable;
 public class AssemblerTable implements Runnable{
 	
 	private ArrayList<String> zipfile = null;
-	private HashMap<String, ArrayList<SubmitTable>> table = null; 
+	private HashMap<String, ArrayList<SubmitTable<String>>> table = null; 
 	private String resultPath = null;
 	
-	public AssemblerTable (ArrayList<String> zipfile, HashMap<String, ArrayList<SubmitTable>> table, String resultPath) {
+	public AssemblerTable (ArrayList<String> zipfile, HashMap<String, ArrayList<SubmitTable<String>>> table, String resultPath) {
 		this.zipfile = zipfile;
 		this.table = table;
 		this.resultPath = resultPath;
@@ -58,7 +58,7 @@ public class AssemblerTable implements Runnable{
 			row += 2;
 	
 			for (String studentOrder : zipfile) {
-				ArrayList<SubmitTable> result_submitTable = table.get(studentOrder);
+				ArrayList<SubmitTable<String>> result_submitTable = table.get(studentOrder);
 				row += result_submitTable.size();
 		
 				i = 0;

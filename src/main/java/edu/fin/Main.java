@@ -25,8 +25,8 @@ public class Main {
 			reader.run(Excelfile);
 			
 			ArrayList<String> zipFileName = reader.getZipFileName();
-			HashMap<String, ArrayList<Submit>> studentAssignment = reader.getStudentAssignment();
-			HashMap<String, ArrayList<SubmitTable>> studentAssignmentTable = reader.getStudentAssignmentTable();
+			HashMap<String, ArrayList<Submit<String>>> studentAssignment = reader.getStudentAssignment();
+			HashMap<String, ArrayList<SubmitTable<String>>> studentAssignmentTable = reader.getStudentAssignmentTable();
 			
 			int index = Output.indexOf(".");
 			String output1 = Output.substring(0, index) + "1" + Output.substring(index, Output.length());

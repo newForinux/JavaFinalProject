@@ -1,54 +1,54 @@
 package edu.fin.data;
 
-public class Submit {
-	private String title;
-	private String summary;
-	private String coreWord;
-	private String date;
-	private String realSource;
-	private String originSource;
-	private String owner;
+public class Submit<T> {
+	private T title;
+	private T summary;
+	private T coreWord;
+	private T date;
+	private T realSource;
+	private T originSource;
+	private T owner;
 	
-	public String getTitle() {
+	public T getTitle() {
 		return title;
 	}
-	public void setTitle(String title) {
+	public void setTitle (T title) {
 		this.title = title;
 	}
-	public String getSummary() {
+	public T getSummary() {
 		return summary;
 	}
-	public void setSummary(String summary) {
+	public void setSummary(T summary) {
 		this.summary = summary;
 	}
-	public String getCoreWord() {
+	public T getCoreWord() {
 		return coreWord;
 	}
-	public void setCoreWord(String coreWord) {
+	public void setCoreWord(T coreWord) {
 		this.coreWord = coreWord;
 	}
-	public String getDate() {
+	public T getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	public void setDate(T date) {
 		this.date = date;
 	}
-	public String getRealSource() {
+	public T getRealSource() {
 		return realSource;
 	}
-	public void setRealSource(String realSource) {
+	public void setRealSource(T realSource) {
 		this.realSource = realSource;
 	}
-	public String getOriginSource() {
+	public T getOriginSource() {
 		return originSource;
 	}
-	public void setOriginSource(String originSource) {
+	public void setOriginSource(T originSource) {
 		this.originSource = originSource;
 	}
-	public String getOwner() {
+	public T getOwner() {
 		return owner;
 	}
-	public void setOwner(String owner) {
+	public void setOwner(T owner) {
 		this.owner = owner;
 	}
 	

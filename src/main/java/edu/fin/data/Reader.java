@@ -15,8 +15,8 @@ public class Reader {
 	private Workbook workbook;
 	private Sheet sheet;
 	private ArrayList<String> zipFileName = new ArrayList<String>();
-	private HashMap<String, ArrayList<Submit>> studentAssignment = new HashMap<String, ArrayList<Submit>>();
-	private HashMap<String, ArrayList<SubmitTable>> studentAssignmentTable = new HashMap<String, ArrayList<SubmitTable>>();
+	private HashMap<String, ArrayList<Submit<String>>> studentAssignment = new HashMap<String, ArrayList<Submit<String>>>();
+	private HashMap<String, ArrayList<SubmitTable<String>>> studentAssignmentTable = new HashMap<String, ArrayList<SubmitTable<String>>>();
 	
 	public void run(ArrayList<String> files) {
 				
@@ -47,11 +47,11 @@ public class Reader {
 		
 			sheet = workbook.getSheetAt(0);
 			int numberOfRows = sheet.getPhysicalNumberOfRows();
-			ArrayList<Submit> summaryList = new ArrayList<Submit>();
+			ArrayList<Submit<String>> summaryList = new ArrayList<Submit<String>>();
 			
 			for (int rowIndex = 1; rowIndex < numberOfRows; rowIndex++) {
 				Row row = sheet.getRow(rowIndex);
-				Submit submit = new Submit();
+				Submit<String> submit = new Submit<String>();
 				
 				if (row != null) {
 					
@@ -91,11 +91,11 @@ public class Reader {
 		
 			sheet = workbook.getSheetAt(0);
 			int numberOfRows = sheet.getPhysicalNumberOfRows();
-			ArrayList<SubmitTable> summaryTable = new ArrayList<SubmitTable>();
+			ArrayList<SubmitTable<String>> summaryTable = new ArrayList<SubmitTable<String>>();
 			
 			for (int rowIndex = 2; rowIndex < numberOfRows; rowIndex++) {
 				Row row = sheet.getRow(rowIndex);
-				SubmitTable submitTable = new SubmitTable();
+				SubmitTable<String> submitTable = new SubmitTable<String>();
 				
 				if (row != null) {
 					
@@ -122,12 +122,12 @@ public class Reader {
 	}
 
 
-	public HashMap<String, ArrayList<Submit>> getStudentAssignment() {
+	public HashMap<String, ArrayList<Submit<String>>> getStudentAssignment() {
 		return studentAssignment;
 	}
 
 
-	public HashMap<String, ArrayList<SubmitTable>> getStudentAssignmentTable() {
+	public HashMap<String, ArrayList<SubmitTable<String>>> getStudentAssignmentTable() {
 		return studentAssignmentTable;
 	}
 	

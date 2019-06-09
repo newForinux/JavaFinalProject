@@ -10,10 +10,10 @@ import edu.fin.data.Reader;
 
 public class Assembler implements Runnable {
 	private ArrayList<String> zipfile = null;
-	private HashMap<String, ArrayList<Submit>> summary = null;
+	private HashMap<String, ArrayList<Submit<String>>> summary = null;
 	private String resultPath = null;
 
-	public Assembler (ArrayList<String> zipfile, HashMap<String, ArrayList<Submit>> summary, String resultPath) {
+	public Assembler (ArrayList<String> zipfile, HashMap<String, ArrayList<Submit<String>>> summary, String resultPath) {
 		this.zipfile = zipfile;
 		this.summary = summary;
 		this.resultPath = resultPath;
@@ -44,7 +44,7 @@ public class Assembler implements Runnable {
 			Row.createCell(6).setCellValue("제작자\r\n" + "(Copyright 소유처)");
 			
 			for (String studentOrder : zipfile) {
-				ArrayList<Submit> result_submit = summary.get(studentOrder);
+				ArrayList<Submit<String>> result_submit = summary.get(studentOrder);
 				row += result_submit.size();
 				
 				i = 0;

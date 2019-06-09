@@ -1,41 +1,41 @@
 package edu.fin.data;
 
-public class SubmitTable {
-	private String title;
-	private String serial;
-	private String dataType;
-	private String informations;
-	private String infoNumber;
+public class SubmitTable<T>{
+	private T title;
+	private T serial;
+	private T dataType;
+	private T informations;
+	private T infoNumber;
 
 	
-	public String getTitle() {
+	public T getTitle() {
 		return title;
 	}
-	public void setTitle(String title) {
+	public void setTitle(T title) {
 		this.title = title;
 	}
-	public String getSerial() {
+	public T getSerial() {
 		return serial;
 	}
-	public void setSerial(String serial) {
+	public void setSerial(T serial) {
 		this.serial = serial;
 	}
-	public String getDataType() {
+	public T getDataType() {
 		return dataType;
 	}
-	public void setDataType(String dataType) {
+	public void setDataType(T dataType) {
 		this.dataType = dataType;
 	}
-	public String getInformations() {
+	public T getInformations() {
 		return informations;
 	}
-	public void setInformations(String informations) {
+	public void setInformations(T informations) {
 		this.informations = informations;
 	}
-	public String getInfoNumber() {
+	public T getInfoNumber() {
 		return infoNumber;
 	}
-	public void setInfoNumber(String infoNumber) {
+	public void setInfoNumber(T infoNumber) {
 		this.infoNumber = infoNumber;
 	}
 }
